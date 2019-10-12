@@ -1,5 +1,4 @@
 import axios from "axios";
-
 export const FETCHING_DATA_START = "FETCHING_DATA_START";
 export const FETCHING_DATA_SUCCESS = "FETCHING_DATA_SUCCESS";
 export const FETCHING_DATA_FAILURE = "FETCHING_DATA_FAILURE";
@@ -8,14 +7,14 @@ export const getData = () => dispatch => {
   dispatch({ type: FETCHING_DATA_START });
   axios
     .get(
-      "https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=python&location=new+york"
+      `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=&location=`
     )
     .then(res => {
-      console.log("inside axios...", res);
-      dispatch({ type: FETCHING_DATA_SUCCESS, payload: res.data});
+        console.log('inside axios...',res.data.all)
+      dispatch({ type: FETCHING_DATA_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      dispatch({ type: FETCHING_DATA_FAILURE, payload: err.res.message });
+      dispatch({ type: FETCHING_DATA_FAILURE, payload: err.response.message });
     });
 };
 // same as:

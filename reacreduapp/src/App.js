@@ -1,29 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import "./App.css";
+import { getData } from "./store/actions";
+import { connect } from "react-redux";
+import Jobs from "./component/fact";
+// import React, { useState, useEffect } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+// import "./App.css";
 
-// import { useDarkMode } from './hooks/useDarkMode';
-import { getData } from './store/actions';
+// import { useDarkMode } from "./hooks/useDarkMode";
+// import { getData } from "./store/actions";
 
-import Jobs from './component/facts';
+// import Jobs from "./components/Jobs";
 
-export default function App() {
-  const data = useSelector(state => state.data);
-  const isFetching = useSelector(state => state.isFetching);
-  const dispatch = useDispatch();
+// const App = props => {
+  const App = () => {
+    const data = useSelector(state => state.data);
+    const isFetching = useSelector(state => state.isFetching);
+    const dispatch = useDispatch();
+  useEffect(() => dispatch(getData("", "")), []);
+    // useEffect(() => {
+    //   props.getData();
+    // }, []);
+    return (
+      <div className="App">
+        <header>
+          <h1>
+            <span>Git</span>Hired
+          </h1>
+        </header>
 
-  const [search, setSearch] = useState('');
-  const [location, setLocation] = useState('');
+        <h4>Fetching data, thank you for your patience...</h4>
 
+        <Jobs data={data} />
+      </div>
+    );
+  };
+// const mapStateToProps = state => {
+//   return {
+//     data: state.data,
+//     isFetching: state.isFetching,
+//     error: state.error
+//   };
+// };
 
- useEffect(() => dispatch(getData('', '')), []);
-
-  return (
-    <div>
-        <h4>
-          Fetching data, thank you for your patience...
-        </h4>
-      {!isFetching && <Jobs data={data} />}
-    </div>
-  );
-}
+// export default connect(
+//   mapStateToProps,
+//   { getData }
+// )(App);
+export default App;
